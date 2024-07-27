@@ -1,0 +1,16 @@
+# Ignore everything
+*
+
+# Explicity include the following files
+!.gitignore
+
+# Explicitly include the following directories
+!.config/
+!.config/fish/
+!.config/fish/**
+!.config/kitty/
+!.config/kitty/**
+!.config/nvim/
+!.config/nvim/**
+!.config/tmux/
+!.config/tmux/**
