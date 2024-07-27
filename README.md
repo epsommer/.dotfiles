@@ -1,2 +1,2 @@
 # dotfiles
-This repository contains my development environment configurations.
+Development environment configurations.
