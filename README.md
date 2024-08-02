@@ -58,5 +58,5 @@ This repository is licensed under the [MIT License](LICENSE).
 
 ## Contact
 
-For any questions or feedback, you can reach out via [email](mailto:admin@evangelosommer.com).
+For any questions or feedback, you can reach out via [email](mailto:contact@evangelosommer.com).
 
