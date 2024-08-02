@@ -12,15 +12,10 @@ return {
 
 		-- Configure treesitter
 		treesitter.setup({
-			highlight = {
-				enable = true, -- Enable syntax highlighting
-				additional_vim_regex_highlighting = false, -- Disable additional regex highlighting
-			},
-			indent = { enable = true }, -- Enable indentation
-			autotag = {
-				enable = true, -- Enable autotagging with nvim-ts-autotag
-			},
 			ensure_installed = {
+				"vim",
+				"regex",
+				"bash",
 				"json",
 				"javascript",
 				"typescript",
@@ -42,6 +37,19 @@ return {
 				"vimdoc",
 				"c",
 			},
+			sync_install = false, -- Set to true if you want to install parsers synchronously
+			ignore_install = {}, -- List of parsers to ignore during installation
+			auto_install = true, -- Automatically install missing parsers when entering buffer
+			highlight = {
+				enable = true, -- Enable syntax highlighting
+				additional_vim_regex_highlighting = false, -- Disable additional regex highlighting
+			},
+			indent = {
+				enable = true,
+			}, -- Enable indentation
+			autotag = {
+				enable = true, -- Enable autotagging with nvim-ts-autotag
+			},
 			incremental_selection = {
 				enable = true,
 				keymaps = {
@@ -51,15 +59,10 @@ return {
 					node_decremental = "<bs>",
 				},
 			},
+			modules = {
+				-- You can specify modules here if needed; for example:
+				-- module_name = true/false,
+			},
 		})
-
-		-- Configure vim.lsp.util to be handled by Noice
-		local noice = require("noice")
-		if noice.lsp then
-			vim.lsp.util.convert_input_to_markdown_lines = noice.lsp.convert_input_to_markdown_lines
-			vim.lsp.util.stylize_markdown = noice.lsp.stylize_markdown
-		else
-			print("Noice LSP integration is not available")
-		end
 	end,
 }

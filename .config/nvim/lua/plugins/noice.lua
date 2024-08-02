@@ -19,6 +19,17 @@ return {
 						},
 					},
 				},
+				lsp = {
+					-- Ensure Noice handles these LSP methods
+					handlers = {
+						["textDocument/hover"] = require("noice.lsp").hover,
+						["textDocument/signatureHelp"] = require("noice.lsp").signatureHelp,
+						["window/showMessage"] = require("noice.lsp").showMessage,
+					},
+					-- Configure markdown handling
+					convert_input_to_markdown_lines = true,
+					stylize_markdown = true,
+				},
 				-- Add any other plugin options here
 			})
 
@@ -39,6 +50,10 @@ return {
 				pattern = "*",
 				callback = apply_custom_highlights,
 			})
+
+			-- Explicitly configure LSP markdown handling
+			vim.lsp.util.convert_input_to_markdown_lines = require("noice.lsp").convert_input_to_markdown_lines
+			vim.lsp.util.stylize_markdown = require("noice.lsp").stylize_markdown
 		end,
 	},
 }

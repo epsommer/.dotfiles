@@ -45,3 +45,9 @@ opt.swapfile = false
 
 -- Configure Neovim to use the virtual enviroment's Python
 vim.g.python3_host_prog = vim.fn.expand("~/.venvs/nvim_env/bin/python")
+
+-- Perl Configuration
+vim.g.loaded_perl_provider = 1
+
+-- auto-session
+vim.o.sessionoptions = "blank,buffers,curdir,folds,help,tabpages,winsize,winpos,terminal,localoptions"
