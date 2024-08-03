@@ -1,4 +1,4 @@
-# Dotfiles
+# .dotfiles
 
 This repository contains configuration files for setting up and customizing your development environment. The configurations are designed to be managed and version-controlled within this repository, making it easy to synchronize across different machines.
 
