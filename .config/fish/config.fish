@@ -37,7 +37,7 @@ end
 # ----------------------------
 alias ls='eza --color=always'
 alias vim='nvim'
-alia tmux="tmux -f ~/.config/tmux/tmux.conf"
+alias tmux="tmux -f ~/.config/tmux/tmux.conf"
 
 # ----------------------------
 # Add Rust's Cargo binaries to PATH
