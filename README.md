@@ -4,7 +4,7 @@ This repository contains configuration files for setting up and customizing your
 
 ## Overview
 
-The `dotfiles` repository includes configurations for various tools and environments:
+The `.dotfiles` repository includes configurations for various tools and environments:
 
 - **Fish Shell**: Custom settings and functions for the Fish shell.
 - **Kitty Terminal**: Terminal emulator configuration.
