@@ -37,9 +37,9 @@ return {
 			local function apply_custom_highlights()
 				vim.api.nvim_set_hl(0, "NoiceCmdline", { fg = colors.pink, bg = colors.bg })
 				vim.api.nvim_set_hl(0, "NoiceMessage", { fg = colors.pink, bg = colors.bg })
-				vim.api.nvim_set_hl(0, "NoicePopupMenu", { fg = colors.white, bg = colors.bg })
+				vim.api.nvim_set_hl(0, "NoicePopupMenu", { fg = colors.bone, bg = colors.bg })
 				vim.api.nvim_set_hl(0, "NoiceCmdlinePopupBorder", { fg = colors.nickel, bg = colors.bg })
-				vim.api.nvim_set_hl(0, "NormalFloat", { fg = colors.white, bg = colors.bg })
+				vim.api.nvim_set_hl(0, "NormalFloat", { fg = colors.bone, bg = colors.bg })
 				vim.api.nvim_set_hl(0, "NoiceCursor", { fg = colors.nickel, bg = colors.bg })
 				vim.api.nvim_set_hl(0, "NoiceCmdLineIconCmdLine", { fg = colors.nickel, bg = colors.bg })
 			end

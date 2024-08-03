@@ -120,7 +120,7 @@ return {
 				DevIconjava = { fg = colors.nickel },
 				DevIcondart = { fg = colors.nickel },
 
-				-- Folders
+				-- Folder highlights
 				NvimTreeFolderIcon = { fg = colors.crayola_gold },
 				NvimTreeFolderName = { fg = colors.bone },
 				NvimTreeOpenedFolderName = { fg = colors.bone },
@@ -129,7 +129,7 @@ return {
 				NvimTreeRootFolder = { fg = colors.nickel },
 
 				-- Cursor related highlights
-				Cursor = { fg = colors.inactive_bg, bg = colors.white },
+				Cursor = { fg = colors.inactive_bg, bg = colors.nickel },
 				CursorLineNr = { fg = colors.bone, bg = colors.inactive_bg },
 				NvimTreeCursorLineNr = { fg = colors.bone, bg = colors.inactive_bg },
 				NvimTreeStatusLine = { fg = colors.bone, bg = colors.inactive_bg },
