@@ -2,6 +2,7 @@
 vim.cmd("let g:netrw_liststyle = 3")
 
 local opt = vim.opt
+local clipboard_tool = os.getenv("WAYLAND_DISPLAY") and "wl-copy" or "xclip"
 
 opt.relativenumber = true
 opt.number = true
@@ -20,25 +21,36 @@ opt.smartcase = true -- if you include mixed case in your search, assumes you wa
 
 opt.cursorline = true
 
-vim.opt.fillchars = {
+opt.fillchars = {
 	eob = " ", -- Replace end-of-buffer tilde with a space
 }
 
 -- Turn on termguicolors for tokyonight colorscheme to work
 -- Must use iterm2 or any other true color terminal
 opt.termguicolors = true
-opt.background = "dark" -- colorschemes that can be light or dark will be made dark
-opt.signcolumn = "yes" -- show sign column so that text doesn't shift
+opt.background = "dark" -- Colorschemes that can be light or dark will be made dark
+opt.signcolumn = "yes" -- Show sign column so that text doesn't shift
 
 -- Backspace
-opt.backspace = "indent,eol,start" -- allow backspace on indent, end of line or insert mode start position
+opt.backspace = "indent,eol,start" -- Allow backspace on indent, end of line or insert mode start position
 
--- Clipboard
-opt.clipboard:append("unnamedplus") -- use system clipboard as default register
+-- Clipboard Configuration
+vim.g.clipboard = {
+	name = "custom_clipboard",
+	copy = {
+		["+"] = clipboard_tool,
+		["*"] = clipboard_tool,
+	},
+	paste = {
+		["+"] = clipboard_tool:gsub("copy", "paste"),
+		["*"] = clipboard_tool:gsub("copy", "paste"),
+	},
+	cache_enabled = 1,
+}
 
 -- Split windows
-opt.splitright = true -- split vertical window to the right
-opt.splitbelow = true -- split horizontal window to the bottom
+opt.splitright = true -- Split vertical window to the right
+opt.splitbelow = true -- Split horizontal window to the bottom
 
 -- Turn off swapfile
 opt.swapfile = false
@@ -49,5 +61,5 @@ vim.g.python3_host_prog = vim.fn.expand("~/.venvs/nvim_env/bin/python")
 -- Perl Configuration
 vim.g.loaded_perl_provider = 1
 
--- auto-session
+-- Auto-session
 vim.o.sessionoptions = "blank,buffers,curdir,folds,help,tabpages,winsize,winpos,terminal,localoptions"

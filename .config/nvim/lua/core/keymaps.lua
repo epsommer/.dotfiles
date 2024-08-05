@@ -1,18 +1,20 @@
+-- ~/.config/nvim/lua/core/keymaps.lua
 vim.g.mapleader = " "
 
-local keymap = vim.keymap -- for conciseness
-local api = vim.api -- for conciseness
-local opts = { noremap = true, silent = true }
+local keymap = vim.keymap -- For conciseness
+local api = vim.api -- For conciseness
+local opts = { noremap = true, silent = true } -- For conciseness
 
+-- Exit Insert mode and return to Normal mode
 keymap.set("i", "jk", "<ESC>", { desc = "Exit insert mode with jk" })
 
 keymap.set("n", "<leader>nh", ":nohl<CR>", { desc = "Clear search highlights" })
 
--- increment/decrement numbers
+-- Increment/decrement numbers
 keymap.set("n", "<leader>+", "<C-a>", { desc = "Increment number" }) -- increment number beneath cursor
 keymap.set("n", "<leader>-", "<C-x>", { desc = "Decrement number" }) -- decrement number beneath cursor
 
--- window management
+-- Window management
 keymap.set("n", "<leader>sv", "<C-w>v", { desc = "Split window vertically" }) -- split window vertically
 keymap.set("n", "<leader>sh", "<C-w>s", { desc = "Split window horizontally" }) -- split window horizontally
 keymap.set("n", "<leader>se", "<C-w>=", { desc = "Make splits equal size" }) -- make split windows equal width & height
@@ -96,3 +98,16 @@ end, opts)
 keymap.set("n", "<leader>i", function() -- Press Leader + i to toggle inlay hints on or off
 	require("craftzdog.lsp").toggleInlayHints()
 end)
+
+-- Oil.nvim shortcut here
+vim.keymap.set("n", "-", "<cmd>lua require('oil').open()<CR>", { noremap = true, silent = true })
+
+-- Keymaps for clipboard
+vim.api.nvim_set_keymap("n", "<leader>cp", '"+y', { noremap = true, silent = true })
+vim.api.nvim_set_keymap("n", "<leader>cv", '"+p', { noremap = true, silent = true })
+
+-- Ensure to always use the system clipboard for pasting
+vim.api.nvim_set_keymap("n", "p", '"*p', { noremap = true, silent = true })
+vim.api.nvim_set_keymap("n", "P", '"*P', { noremap = true, silent = true })
+vim.api.nvim_set_keymap("v", "p", '"*p', { noremap = true, silent = true })
+vim.api.nvim_set_keymap("v", "P", '"*P', { noremap = true, silent = true })

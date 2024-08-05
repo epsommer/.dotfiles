@@ -55,6 +55,9 @@ return {
 		lualine.setup({
 			options = {
 				theme = my_lualine_theme,
+				-- Set rectangular separators instead of slanted ones
+				section_separators = { "", "" },
+				component_separators = { "|", "|" },
 			},
 			sections = {
 				lualine_x = {
