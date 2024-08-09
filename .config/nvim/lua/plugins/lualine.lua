@@ -14,7 +14,7 @@ return {
 			red = "#E46978",
 			grey = "#353545",
 			fg = "#A8A48D",
-			bg = "#1F1F28",
+			bg = "#16161D",
 			inactive_bg = "#323C51",
 		}
 

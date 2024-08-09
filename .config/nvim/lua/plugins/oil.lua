@@ -17,15 +17,15 @@ return {
 				},
 				-- Buffer-local options to use for oil buffers
 				buf_options = {
-					buflisted = false,
+					buflisted = true,
 					bufhidden = "hide",
 				},
 				-- Window-local options to use for oil buffers
 				win_options = {
 					wrap = false,
-					signcolumn = "no",
+					signcolumn = "yes",
 					cursorcolumn = false,
-					foldcolumn = "0",
+					foldcolumn = "1",
 					spell = false,
 					list = false,
 					conceallevel = 3,
@@ -70,7 +70,7 @@ return {
 						opts = { vertical = true },
 						desc = "Open the entry in a vertical split",
 					},
-					["<C-h>"] = {
+					["<C-x>"] = {
 						"actions.select",
 						opts = { horizontal = true },
 						desc = "Open the entry in a horizontal split",
@@ -78,7 +78,7 @@ return {
 					["<C-t>"] = { "actions.select", opts = { tab = true }, desc = "Open the entry in new tab" },
 					["<C-p>"] = "actions.preview",
 					["<C-c>"] = "actions.close",
-					["<C-l>"] = "actions.refresh",
+					["<C-r>"] = "actions.refresh",
 					["-"] = "actions.parent",
 					["_"] = "actions.open_cwd",
 					["`"] = "actions.cd",
@@ -89,7 +89,7 @@ return {
 					["g\\"] = "actions.toggle_trash",
 				},
 				-- Set to false to disable all of the above keymaps
-				use_default_keymaps = true,
+				use_default_keymaps = false,
 				view_options = {
 					-- Show files and directories that start with "."
 					show_hidden = true,

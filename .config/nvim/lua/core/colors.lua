@@ -17,7 +17,7 @@ local colors = {
 	vibrant_green = "#00FF00",
 	teal = "#008080",
 	dark_red = "#8B0000",
-	bg = "#1F1F28",
+	bg = "#1A1A22",
 	inactive_bg = "#3C3C51",
 }
 

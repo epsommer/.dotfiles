@@ -12,7 +12,7 @@ keymap.set("n", "<leader>nh", ":nohl<CR>", { desc = "Clear search highlights" })
 
 -- Increment/decrement numbers
 keymap.set("n", "<leader>+", "<C-a>", { desc = "Increment number" }) -- increment number beneath cursor
-keymap.set("n", "<leader>-", "<C-x>", { desc = "Decrement number" }) -- decrement number beneath cursor
+vim.api.nvim_set_keymap("n", "<leader>_", "<C-x>", { noremap = true, silent = true, desc = "Decrement number" })
 
 -- Window management
 keymap.set("n", "<leader>sv", "<C-w>v", { desc = "Split window vertically" }) -- split window vertically
@@ -34,9 +34,9 @@ api.nvim_set_keymap("v", "<C-j>", ":m '>+1<CR>gv=gv", { noremap = true, silent =
 
 -- Do things without affecting the registers
 keymap.set("n", "x", '"_x') -- Press 'x' to delete a character without copying it
-keymap.set("n", "<Leader>p", '"0p') -- Press Leader + p to paste the last yanked text
-keymap.set("n", "<Leader>P", '"0P') -- Press Leader + P to paste the last yanked text before the cursor
-keymap.set("v", "<Leader>p", '"0p') -- Press Leader + p to paste the last yanked text in visual mode
+-- keymap.set("n", "<Leader>p", '"0p') -- Press Leader + p to paste the last yanked text
+-- keymap.set("n", "<Leader>P", '"0P') -- Press Leader + P to paste the last yanked text before the cursor
+-- keymap.set("v", "<Leader>p", '"0p') -- Press Leader + p to paste the last yanked text in visual mode
 keymap.set("n", "<Leader>c", '"_c') -- Press Leader + c to change text without copying it
 keymap.set("n", "<Leader>C", '"_C') -- Press Leader + C to change text to the end of the line without copying it
 keymap.set("v", "<Leader>c", '"_c') -- Press Leader + c to change text in visual mode without copying it
@@ -102,12 +102,33 @@ end)
 -- Oil.nvim shortcut here
 vim.keymap.set("n", "-", "<cmd>lua require('oil').open()<CR>", { noremap = true, silent = true })
 
--- Keymaps for clipboard
-vim.api.nvim_set_keymap("n", "<leader>cp", '"+y', { noremap = true, silent = true })
-vim.api.nvim_set_keymap("n", "<leader>cv", '"+p', { noremap = true, silent = true })
+-- Clipboard Keymaps
+keymap.set("n", "<leader>cp", '"+y', opts)
+keymap.set("n", "<leader>cv", '"+p', opts)
+
+-- Yank to system clipboard
+keymap.set("n", "y", '"+y', opts)
+keymap.set("v", "y", '"+y', opts)
+keymap.set("n", "Y", '"+Y', opts)
+
+-- Delete to system clipboard
+keymap.set("n", "d", '"+d', opts)
+keymap.set("v", "d", '"+d', opts)
+keymap.set("n", "D", '"+D', opts)
+
+-- Change to system clipboard
+keymap.set("n", "c", '"+c', opts)
+keymap.set("v", "c", '"+c', opts)
+keymap.set("n", "C", '"+C', opts)
 
 -- Ensure to always use the system clipboard for pasting
-vim.api.nvim_set_keymap("n", "p", '"*p', { noremap = true, silent = true })
-vim.api.nvim_set_keymap("n", "P", '"*P', { noremap = true, silent = true })
-vim.api.nvim_set_keymap("v", "p", '"*p', { noremap = true, silent = true })
-vim.api.nvim_set_keymap("v", "P", '"*P', { noremap = true, silent = true })
+keymap.set("n", "p", '"+p', opts)
+keymap.set("n", "P", '"+P', opts)
+keymap.set("v", "p", '"_dP', opts)
+keymap.set("v", "P", '"_dP', opts)
+
+-- Additional mappings to handle newline issue
+keymap.set("n", "<leader>p", '"+p', opts)
+keymap.set("n", "<leader>P", '"+P', opts)
+keymap.set("v", "<leader>p", '"+p', opts)
+keymap.set("v", "<leader>P", '"+P', opts)
