@@ -35,18 +35,18 @@ opt.signcolumn = "yes" -- Show sign column so that text doesn't shift
 opt.backspace = "indent,eol,start" -- Allow backspace on indent, end of line or insert mode start position
 
 -- Clipboard Configurations
-vim.g.clipboard = {
-	name = "custom_clipboard",
-	copy = {
-		["+"] = clipboard_tool,
-		["*"] = clipboard_tool,
-	},
-	paste = {
-		["+"] = clipboard_tool:gsub("copy", "paste"),
-		["*"] = clipboard_tool:gsub("copy", "paste"),
-	},
-	cache_enabled = 1,
-}
+--vim.g.clipboard = {
+--	name = "wl-clipboard",
+--	copy = {
+--		["+"] = clipboard_tool,
+--		["*"] = clipboard_tool,
+--	},
+--	paste = {
+--		["+"] = clipboard_tool:gsub("copy", "paste"),
+--		["*"] = clipboard_tool:gsub("copy", "paste"),
+--	},
+--  cache_enabled = 1,
+--  }
 
 -- Split windows
 opt.splitright = true -- Split vertical window to the right
@@ -64,12 +64,13 @@ vim.g.loaded_perl_provider = 1
 -- Auto-session
 vim.o.sessionoptions = "blank,buffers,curdir,folds,help,tabpages,winsize,winpos,terminal,localoptions"
 
-print("LUA_PATH: " .. (os.getenv("LUA_PATH") or "Not set"))
-print("LUA_CPATH: " .. (os.getenv("LUA_CPATH") or "Not set"))
+-- Print LUA PATHS
+-- print("LUA_PATH: " .. (os.getenv("LUA_PATH") or "Not set"))
+-- print("LUA_CPATH: " .. (os.getenv("LUA_CPATH") or "Not set"))
 
-local status, magick = pcall(require, "magick")
-if status then
-	print("magick module loaded successfully")
-else
-	print("Failed to load magick module: " .. magick)
-end
+-- local status, magick = pcall(require, "magick")
+-- if status then
+--	print("magick module loaded successfully")
+-- else
+--	print("Failed to load magick module: " .. magick)
+-- end

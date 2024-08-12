@@ -132,3 +132,9 @@ keymap.set("n", "<leader>p", '"+p', opts)
 keymap.set("n", "<leader>P", '"+P', opts)
 keymap.set("v", "<leader>p", '"+p', opts)
 keymap.set("v", "<leader>P", '"+P', opts)
+
+-- Clear search highlight
+vim.keymap.set("n", "<leader>nh", ":nohlsearch<CR>", { desc = "Clear search highlight" })
+
+-- Noice keymaps
+keymap.set("n", "<leader>nd", "<cmd>NoiceDismiss<CR>", { desc = "Dismiss Noice Message" }) -- dismiss Noice message

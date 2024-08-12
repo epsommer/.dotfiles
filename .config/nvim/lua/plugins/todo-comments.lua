@@ -20,6 +20,16 @@ return {
 
 		api.nvim_set_keymap("n", "<leader>tt", ":TodoTelescope<CR>", { noremap = true, silent = true })
 
+		keymap.set("n", "]t", function()
+			todo_comments.jump_next()
+		end, { desc = "Next todo comment" })
+
+		keymap.set("n", "[t", function()
+			todo_comments.jump_prev()
+		end, { desc = "Previous todo comment" })
+
+		api.nvim_set_keymap("n", "<leader>tt", ":TodoTelescope<CR>", { noremap = true, silent = true })
+
 		todo_comments.setup({
 			keywords = {
 				TODO = { icon = " ", color = "info", alt = { "TODO" } },

@@ -1,45 +1,25 @@
-set fish_greeting ""
-
-set -gx TERM xterm-256color
-
-# theme
-set -g theme_color_scheme terminal-dark
-set -g fish_prompt_pwd_dir_length 1
-set -g theme_display_user yes
-set -g theme_hide_hostname no
-set -g theme_hostname always
-
-# aliases
-alias ls "ls -p -G"
-alias la "ls -A"
-alias ll "ls -l"
-alias lla "ll -A"
-alias g git
-command -qv nvim && alias vim nvim
-
-set -gx EDITOR nvim
-
-set -gx PATH bin $PATH
-set -gx PATH ~/bin $PATH
-set -gx PATH ~/.local/bin $PATH
-
-# NodeJS
-set -gx PATH node_modules/.bin $PATH
-
-# Go
-set -g GOPATH $HOME/go
-set -gx PATH $GOPATH/bin $PATH
-
-switch (uname)
-    case Darwin
-        source (dirname (status --current-filename))/config-osx.fish
-    case Linux
-        source (dirname (status --current-filename))/config-linux.fish
-    case '*'
-        source (dirname (status --current-filename))/config-windows.fish
+function fish_prompt -d "Write out the prompt"
+    # This shows up as USER@HOST /home/user/ >, with the directory colored
+    # $USER and $hostname are set by fish, so you can just use them
+    # instead of using `whoami` and `hostname`
+    printf '%s@%s %s%s%s > ' $USER $hostname \
+        (set_color $fish_color_cwd) (prompt_pwd) (set_color normal)
 end
 
-set LOCAL_CONFIG (dirname (status --current-filename))/config-local.fish
-if test -f $LOCAL_CONFIG
-    source $LOCAL_CONFIG
+if status is-interactive
+    # Commands to run in interactive sessions can go here
+    set fish_greeting
+
 end
+
+starship init fish | source
+if test -f ~/.cache/ags/user/generated/terminal/sequences.txt
+    cat ~/.cache/ags/user/generated/terminal/sequences.txt
+end
+
+alias pamcan=pacman
+
+# function fish_prompt
+#   set_color cyan; echo (pwd)
+#   set_color green; echo '> '
+# end
