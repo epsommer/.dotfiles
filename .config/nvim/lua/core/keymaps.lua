@@ -1,90 +1,89 @@
 -- ~/.config/nvim/lua/core/keymaps.lua
-local keymap = vim.keymap -- For conciseness
-local api = vim.api -- For conciseness
-local opts = { noremap = true, silent = true } -- For conciseness
+local keymap = vim.keymap.set
+local api = vim.api.nvim_set_keymap
+local opts = { noremap = true, silent = true }
 local cmp = require("cmp")
 
 -- Exit Insert mode and return to Normal mode
-keymap.set("i", "jk", "<ESC>", { desc = "Exit insert mode with jk" })
+keymap("i", "jk", "<ESC>", { desc = "Exit insert mode with jk" })
 
-keymap.set("n", "<leader>nh", ":nohl<CR>", { desc = "Clear search highlights" })
+-- Clear search highlights
+keymap("n", "<leader>nh", ":nohl<CR>", { desc = "Clear search highlights" })
 
 -- Increment/decrement numbers
-keymap.set("n", "<leader>+", "<C-a>", { desc = "Increment number" }) -- increment number beneath cursor
-vim.api.nvim_set_keymap("n", "<leader>_", "<C-x>", { noremap = true, silent = true, desc = "Decrement number" })
+keymap("n", "<leader>+", "<C-a>", { desc = "Increment number" })
+opts.desc = "Decrement number"
+api("n", "<leader>_", "<C-x>", opts)
 
 -- Window management
-keymap.set("n", "<leader>sv", "<C-w>v", { desc = "Split window vertically" }) -- split window vertically
-keymap.set("n", "<leader>sh", "<C-w>s", { desc = "Split window horizontally" }) -- split window horizontally
-keymap.set("n", "<leader>se", "<C-w>=", { desc = "Make splits equal size" }) -- make split windows equal width & height
-keymap.set("n", "<leader>sx", "<cmd>close<CR>", { desc = "Close current split" }) -- close current split window
+keymap("n", "<leader>sv", "<C-w>v", { desc = "Split window vertically" })
+keymap("n", "<leader>sh", "<C-w>s", { desc = "Split window horizontally" })
+keymap("n", "<leader>se", "<C-w>=", { desc = "Make splits equal size" })
+keymap("n", "<leader>sx", "<cmd>close<CR>", { desc = "Close current split" })
 
-keymap.set("n", "<leader>to", "<cmd>tabnew<CR>", { desc = "Open new tab" }) -- open new tab
-keymap.set("n", "<leader>tx", "<cmd>tabclose<CR>", { desc = "Close current tab" }) -- close current tab
-keymap.set("n", "<leader>tn", "<cmd>tabn<CR>", { desc = "Go to next tab" }) --  go to next tab
-keymap.set("n", "<leader>tp", "<cmd>tabp<CR>", { desc = "Go to previous tab" }) --  go to previous tab
-keymap.set("n", "<leader>tf", "<cmd>tabnew %<CR>", { desc = "Open current buffer in new tab" }) --  move current buffer to new tab
+-- Tab management
+keymap("n", "<leader>to", "<cmd>tabnew<CR>", { desc = "Open new tab" })
+keymap("n", "<leader>tx", "<cmd>tabclose<CR>", { desc = "Close current tab" })
+keymap("n", "<leader>tn", "<cmd>tabn<CR>", { desc = "Go to next tab" })
+keymap("n", "<leader>tp", "<cmd>tabp<CR>", { desc = "Go to previous tab" })
+keymap("n", "<leader>tf", "<cmd>tabnew %<CR>", { desc = "Open current buffer in new tab" })
 
--- Key mappings for moving lines up and down
-api.nvim_set_keymap("n", "<C-S-Up>", ":m .-2<CR>==", { noremap = true, silent = true })
-api.nvim_set_keymap("n", "<C-S-Down>", ":m .+1<CR>==", { noremap = true, silent = true })
-api.nvim_set_keymap("v", "<C-k>", ":m '<-2<CR>gv=gv", { noremap = true, silent = true }) -- Move selected lines up with Ctrl + k
-api.nvim_set_keymap("v", "<C-j>", ":m '>+1<CR>gv=gv", { noremap = true, silent = true }) -- Move selected lines down with Ctrl + j
+-- Move lines up and down
+api("n", "<C-S-Up>", ":m .-2<CR>==", opts)
+api("n", "<C-S-Down>", ":m .+1<CR>==", opts)
+api("v", "<C-k>", ":m '<-2<CR>gv=gv", opts) -- Move selected lines up with Ctrl + k
+api("v", "<C-j>", ":m '>+1<CR>gv=gv", opts) -- Move selected lines down with Ctrl + j
 
--- Do things without affecting the registers
-keymap.set("n", "x", '"_x') -- Press 'x' to delete a character without copying it
--- keymap.set("n", "<Leader>p", '"0p') -- Press Leader + p to paste the last yanked text
--- keymap.set("n", "<Leader>P", '"0P') -- Press Leader + P to paste the last yanked text before the cursor
--- keymap.set("v", "<Leader>p", '"0p') -- Press Leader + p to paste the last yanked text in visual mode
-keymap.set("n", "<Leader>c", '"_c') -- Press Leader + c to change text without copying it
-keymap.set("n", "<Leader>C", '"_C') -- Press Leader + C to change text to the end of the line without copying it
-keymap.set("v", "<Leader>c", '"_c') -- Press Leader + c to change text in visual mode without copying it
-keymap.set("v", "<Leader>C", '"_C') -- Press Leader + C to change text to the end of the line in visual mode without copying it
-keymap.set("n", "<Leader>d", '"_d') -- Press Leader + d to delete text without copying it
-keymap.set("n", "<Leader>D", '"_D') -- Press Leader + D to delete text to the end of the line without copying it
-keymap.set("v", "<Leader>d", '"_d') -- Press Leader + d to delete text in visual mode without copying it
-keymap.set("v", "<Leader>D", '"_D') -- Press Leader + D to delete text to the end of the line in visual mode without copying it
-
--- Increment/decrement
-keymap.set("n", "+", "<C-a>") -- Press + to increment the number under the cursor
-keymap.set("n", "-", "<C-x>") -- Press - to decrement the number under the cursor
+-- Modify text without altering the registers
+keymap("n", "x", '"_x')
+-- keymap("n", "<Leader>p", '"0p') -- Press Leader + p to paste the last yanked text
+-- keymap("n", "<Leader>P", '"0P') -- Press Leader + P to paste the last yanked text before the cursor
+-- keymap("v", "<Leader>p", '"0p') -- Press Leader + p to paste the last yanked text in visual mode
+keymap("n", "<Leader>c", '"_c')
+keymap("n", "<Leader>C", '"_C')
+keymap("v", "<Leader>c", '"_c')
+keymap("v", "<Leader>C", '"_C')
+keymap("n", "<Leader>d", '"_d')
+keymap("n", "<Leader>D", '"_D')
+keymap("v", "<Leader>d", '"_d')
+keymap("v", "<Leader>D", '"_D')
 
 -- Delete a word backwards
-keymap.set("n", "dw", 'vb"_d') -- Press dw to delete the word before the cursor
+keymap("n", "dw", 'vb"_d')
 
 -- Select all
-keymap.set("n", "<C-a>", "gg<S-v>G") -- Press Ctrl + a to select all text
+keymap("n", "<C-a>", "gg<S-v>G")
 
 -- Disable continuations
-keymap.set("n", "<Leader>o", "o<Esc>^Da", opts) -- Press Leader + o to insert a new line below and start editing
-keymap.set("n", "<Leader>O", "O<Esc>^Da", opts) -- Press Leader + O to insert a new line above and start editing
+keymap("n", "<Leader>o", "o<Esc>^Da", opts)
+keymap("n", "<Leader>O", "O<Esc>^Da", opts)
 
 -- Jumplist
-keymap.set("n", "<C-m>", "<C-i>", opts) -- Press Ctrl + m to go forward in the jump list
+keymap("n", "<C-m>", "<C-i>", opts)
 
 -- New tab
-keymap.set("n", "te", ":tabedit") -- Press te to open a new tab
-keymap.set("n", "<tab>", ":tabnext<Return>", opts) -- Press Tab to go to the next tab
-keymap.set("n", "<s-tab>", ":tabprev<Return>", opts) -- Press Shift + Tab to go to the previous tab
+keymap("n", "te", ":tabedit")
+keymap("n", "<tab>", ":tabnext<Return>", opts)
+keymap("n", "<s-tab>", ":tabprev<Return>", opts)
 
 -- Split window
--- keymap.set("n", "ss", ":split<Return>", opts) -- Press ss to split the window horizontally
--- keymap.set("n", "sv", ":vsplit<Return>", opts) -- Press sv to split the window vertically
+-- keymap("n", "ss", ":split<Return>", opts) -- Press ss to split the window horizontally
+-- keymap("n", "sv", ":vsplit<Return>", opts) -- Press sv to split the window vertically
 
 -- Move window
--- keymap.set("n", "sh", "<C-w>h") -- Press sh to move to the left split
--- keymap.set("n", "sk", "<C-w>k") -- Press sk to move to the upper split
--- keymap.set("n", "sj", "<C-w>j") -- Press sj to move to the lower split
--- keymap.set("n", "sl", "<C-w>l") -- Press sl to move to the right split
+-- keymap("n", "sh", "<C-w>h") -- Press sh to move to the left split
+-- keymap("n", "sk", "<C-w>k") -- Press sk to move to the upper split
+-- keymap("n", "sj", "<C-w>j") -- Press sj to move to the lower split
+-- keymap("n", "sl", "<C-w>l") -- Press sl to move to the right split
 
 -- Resize window
-keymap.set("n", "<C-w><left>", "<C-w><") -- Press Ctrl + w + left arrow to decrease window width
-keymap.set("n", "<C-w><right>", "<C-w>>") -- Press Ctrl + w + right arrow to increase window width
-keymap.set("n", "<C-w><up>", "<C-w>+") -- Press Ctrl + w + up arrow to increase window height
-keymap.set("n", "<C-w><down>", "<C-w>-") -- Press Ctrl + w + down arrow to decrease window height
+keymap("n", "<C-w><left>", "<C-w><")
+keymap("n", "<C-w><right>", "<C-w>>")
+keymap("n", "<C-w><up>", "<C-w>+")
+keymap("n", "<C-w><down>", "<C-w>-")
 
 -- Diagnostics
-keymap.set("n", "<C-j>", function() -- Press Ctrl + j to jump to the next diagnostic message
+keymap("n", "<C-j>", function()
 	vim.diagnostic.goto_next()
 end, opts)
 
@@ -94,122 +93,92 @@ end, opts)
 -- end)
 
 -- Toggle Inlay Hints
-keymap.set("n", "<leader>i", function() -- Press Leader + i to toggle inlay hints on or off
+keymap("n", "<leader>i", function()
 	require("craftzdog.lsp").toggleInlayHints()
 end)
 
--- Oil.nvim shortcut here
-vim.keymap.set("n", "-", "<cmd>lua require('oil').open()<CR>", { noremap = true, silent = true })
+-- Oil.nvim shortcut
+keymap("n", "-", "<cmd>lua require('oil').open()<CR>", opts)
 
 -- Clipboard Keymaps
-keymap.set("n", "<leader>cp", '"+y', opts)
-keymap.set("n", "<leader>cv", '"+p', opts)
+keymap("n", "<leader>cp", '"+y', opts)
+keymap("n", "<leader>cv", '"+p', opts)
 
--- Yank to system clipboard
-keymap.set("n", "y", '"+y', opts)
-keymap.set("v", "y", '"+y', opts)
-keymap.set("n", "Y", '"+Y', opts)
+-- Yank, delete, and change to system clipboard
+keymap({ "n", "v" }, "y", '"+y', opts)
+keymap({ "n", "v" }, "d", '"+d', opts)
+keymap({ "n", "v" }, "c", '"+c', opts)
+keymap("n", "Y", '"+Y', opts)
+keymap("n", "D", '"+D', opts)
+keymap("n", "C", '"+C', opts)
 
--- Delete to system clipboard
-keymap.set("n", "d", '"+d', opts)
-keymap.set("v", "d", '"+d', opts)
-keymap.set("n", "D", '"+D', opts)
-
--- Change to system clipboard
-keymap.set("n", "c", '"+c', opts)
-keymap.set("v", "c", '"+c', opts)
-keymap.set("n", "C", '"+C', opts)
-
--- Ensure to always use the system clipboard for pasting
-keymap.set("n", "p", '"+p', opts)
-keymap.set("n", "P", '"+P', opts)
-keymap.set("v", "p", '"_dP', opts)
-keymap.set("v", "P", '"_dP', opts)
-
--- Additional mappings to handle newline issue
-keymap.set("n", "<leader>p", '"+p', opts)
-keymap.set("n", "<leader>P", '"+P', opts)
-keymap.set("v", "<leader>p", '"+p', opts)
-keymap.set("v", "<leader>P", '"+P', opts)
-
--- Clear search highlight
-vim.keymap.set("n", "<leader>nh", ":nohlsearch<CR>", { desc = "Clear search highlight" })
+-- Pasting from system clipboard
+keymap({ "n", "v" }, "p", '"+p', opts)
+keymap({ "n", "v" }, "P", '"+P', opts)
+keymap({ "n", "v" }, "<leader>p", '"+p', opts)
+keymap({ "n", "v" }, "<leader>P", '"+P', opts)
 
 -- Auto-session
-keymap.set("n", "<leader>wr", "<cmd>SessionRestore<CR>", { desc = "Restore session for cwd" }) -- restore last workspace session for current directory
-keymap.set("n", "<leader>ws", "<cmd>SessionSave<CR>", { desc = "Save session for auto session root dir" }) -- save workspace session for current working directory
+keymap("n", "<leader>wr", "<cmd>SessionRestore<CR>", { desc = "Restore session for cwd" })
+keymap("n", "<leader>ws", "<cmd>SessionSave<CR>", { desc = "Save session for auto session root dir" })
 
 -- Bufferline
-keymap.set("n", "<Tab>", "<Cmd>BufferLineCycleNext<CR>", { desc = "Next tab" })
-keymap.set("n", "<S-Tab>", "<Cmd>BufferLineCyclePrev<CR>", { desc = "Prev tab" })
+keymap("n", "<Tab>", "<Cmd>BufferLineCycleNext<CR>", { desc = "Next tab" })
+keymap("n", "<S-Tab>", "<Cmd>BufferLineCyclePrev<CR>", { desc = "Prev tab" })
 
 -- Formatting
-keymap.set({ "n", "v" }, "<leader>mp", function()
-	require("conform").format({
-		lsp_fallback = true,
-		async = false,
-		timeout_ms = 1000,
-	})
+keymap({ "n", "v" }, "<leader>mp", function()
+	require("conform").format({ lsp_fallback = true, async = false, timeout_ms = 1000 })
 end, { desc = "Format file or range (in visual mode)" })
 
 -- Gitsigns keymaps
-keymap.set("n", "]h", function()
+keymap("n", "]h", function()
 	require("gitsigns").next_hunk()
 end, { desc = "Next Hunk" })
-keymap.set("n", "[h", function()
+keymap("n", "[h", function()
 	require("gitsigns").prev_hunk()
 end, { desc = "Prev Hunk" })
-keymap.set("n", "<leader>hs", function()
+keymap("n", "<leader>hs", function()
 	require("gitsigns").stage_hunk()
 end, { desc = "Stage hunk" })
-keymap.set("n", "<leader>hr", function()
+keymap("n", "<leader>hr", function()
 	require("gitsigns").reset_hunk()
 end, { desc = "Reset hunk" })
-keymap.set("v", "<leader>hs", function()
+keymap("v", "<leader>hs", function()
 	require("gitsigns").stage_hunk({ vim.fn.line("."), vim.fn.line("v") })
 end, { desc = "Stage hunk" })
-keymap.set("v", "<leader>hr", function()
+keymap("v", "<leader>hr", function()
 	require("gitsigns").reset_hunk({ vim.fn.line("."), vim.fn.line("v") })
 end, { desc = "Reset hunk" })
-keymap.set("n", "<leader>hS", function()
+keymap("n", "<leader>hS", function()
 	require("gitsigns").stage_buffer()
 end, { desc = "Stage buffer" })
-keymap.set("n", "<leader>hR", function()
+keymap("n", "<leader>hR", function()
 	require("gitsigns").reset_buffer()
 end, { desc = "Reset buffer" })
-keymap.set("n", "<leader>hu", function()
+keymap("n", "<leader>hu", function()
 	require("gitsigns").undo_stage_hunk()
 end, { desc = "Undo stage hunk" })
-keymap.set("n", "<leader>hp", function()
+keymap("n", "<leader>hp", function()
 	require("gitsigns").preview_hunk()
 end, { desc = "Preview hunk" })
-keymap.set("n", "<leader>hb", function()
+keymap("n", "<leader>hb", function()
 	require("gitsigns").blame_line({ full = true })
 end, { desc = "Blame line" })
-keymap.set("n", "<leader>hB", function()
-	require("gitsigns").toggle_current_line_blame()
-end, { desc = "Toggle line blame" })
-keymap.set("n", "<leader>hd", function()
-	require("gitsigns").diffthis()
-end, { desc = "Diff this" })
-keymap.set("n", "<leader>hD", function()
-	require("gitsigns").diffthis("~")
-end, { desc = "Diff this ~" })
-keymap.set({ "o", "x" }, "ih", ":<C-U>Gitsigns select_hunk<CR>", { desc = "Gitsigns select hunk" })
 
 -- LazyGit keymap(s)
-vim.keymap.set("n", "<leader>lg", "<cmd>LazyGit<cr>", { desc = "Open lazy git" })
+keymap("n", "<leader>lg", "<cmd>LazyGit<cr>", { desc = "Open LazyGit" })
 
--- Linting
-vim.keymap.set("n", "<leader>l", function()
+-- Linting keymap(s)
+keymap("n", "<leader>l", function()
 	require("lint").try_lint()
 end, { desc = "Trigger linting for current file" })
 
--- Noice keymaps
-keymap.set("n", "<leader>nd", "<cmd>NoiceDismiss<CR>", { desc = "Dismiss Noice Message" }) -- dismiss Noice message
+-- Noice keymap(s)
+keymap("n", "<leader>nd", "<cmd>NoiceDismiss<CR>", { desc = "Dismiss Noice message" })
 
--- nvim-cmp keymaps
-keymap.set("i", "<C-n>", function()
+-- nvim-cmp keymap(s)
+keymap("i", "<C-n>", function()
 	if cmp.visible() then
 		cmp.select_next_item()
 	else
@@ -217,22 +186,22 @@ keymap.set("i", "<C-n>", function()
 	end
 end, { desc = "Select next completion item" })
 
-keymap.set("i", "<C-p>", function()
+keymap("i", "<C-p>", function()
 	if cmp.visible() then
 		cmp.select_prev_item()
 	else
-		api.nvim_feedkeys(vim.api.nvim_replace_termcodes("<C-p>", true, false, true), "n", true)
+		vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes("<C-p>", true, false, true), "n", true)
 	end
 end, { desc = "Select previous completion item" })
 
-keymap.set("i", "<C-y>", cmp.confirm, { desc = "Confirm completion" })
+keymap("i", "<C-y>", cmp.confirm, { desc = "Confirm completion" })
 
-keymap.set("i", "<C-e>", cmp.close, { desc = "Close completion menu" })
+keymap("i", "<C-e>", cmp.close, { desc = "Close completion menu" })
 
--- nvim.notify keymaps
-api.nvim_set_keymap(
+-- nvim.notify keymap(s)
+keymap(
 	"n",
 	"<leader>nt",
 	[[:lua require('notify')('This is a test notification', 'info')<CR>]],
-	{ noremap = true, silent = true }
+	{ noremap = true, silent = true, desc = "Send test notification" }
 )
