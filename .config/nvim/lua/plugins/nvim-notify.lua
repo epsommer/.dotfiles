@@ -26,12 +26,8 @@ return {
 				days = "d",
 				weeks = "w",
 			},
-			on_open = function(win) -- Callback for when a notification opens
-				print("Notification opened")
-			end,
-			on_close = function() -- Callback for when a notification closes
-				print("Notification closed")
-			end,
+			on_open = function() end,
+			on_close = function() end, -- Callback for when a notification closes
 			minimum_width = 50, -- Minimum width of notifications
 			top_down = true, -- Whether to stack notifications top-down
 		})

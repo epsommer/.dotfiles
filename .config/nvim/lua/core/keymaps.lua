@@ -1,6 +1,4 @@
 -- ~/.config/nvim/lua/core/keymaps.lua
-vim.g.mapleader = " "
-
 local keymap = vim.keymap -- For conciseness
 local api = vim.api -- For conciseness
 local opts = { noremap = true, silent = true } -- For conciseness

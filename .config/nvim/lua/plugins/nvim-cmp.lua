@@ -1,59 +1,39 @@
+-- ~/.config/nvim/lua/plugins/nvim-cmp.lua
+
 return {
 	"hrsh7th/nvim-cmp",
-	event = "InsertEnter",
 	dependencies = {
-		"hrsh7th/cmp-buffer", -- source for text in buffer
-		"hrsh7th/cmp-path", -- source for file system paths
-		{
-			"L3MON4D3/LuaSnip",
-			-- follow latest release.
-			version = "v2.*", -- Replace <CurrentMajor> by the latest released major (first number of latest release)
-			-- install jsregexp (optional!).
-			build = "make install_jsregexp",
-		},
-		"saadparwaiz1/cmp_luasnip", -- for autocompletion
-		"rafamadriz/friendly-snippets", -- useful snippets
-		"onsails/lspkind.nvim", -- vs-code like pictograms
+		"hrsh7th/cmp-nvim-lsp",
+		"hrsh7th/cmp-buffer",
+		"hrsh7th/cmp-path",
+		"saadparwaiz1/cmp_luasnip",
 	},
 	config = function()
 		local cmp = require("cmp")
-		local luasnip = require("luasnip")
-		local lspkind = require("lspkind")
-
-		-- loads vscode style snippets from installed plugins (e.g. friendly-snippets)
-		require("luasnip.loaders.from_vscode").lazy_load()
 
 		cmp.setup({
-			completion = {
-				completeopt = "menu,menuone,preview,noselect",
-			},
-			snippet = { -- configure how nvim-cmp interacts with snippet engine
+			snippet = {
 				expand = function(args)
-					luasnip.lsp_expand(args.body)
+					require("luasnip").lsp_expand(args.body)
 				end,
 			},
-			-- sources for autocompletion
-			sources = cmp.config.sources({
+			mapping = {
+				["<C-p>"] = cmp.mapping.select_prev_item(),
+				["<C-n>"] = cmp.mapping.select_next_item(),
+				["<C-y>"] = cmp.mapping.confirm({ select = true }),
+				["<C-Space>"] = cmp.mapping.complete(),
+			},
+			sources = {
 				{ name = "nvim_lsp" },
-				{ name = "luasnip" }, -- snippets
-				{ name = "buffer" }, -- text within current buffer
-				{ name = "path" }, -- file system paths
-			}),
-
-			-- configure lspkind for vs-code like pictograms in completion menu
+				{ name = "buffer" },
+				{ name = "path" },
+				{ name = "luasnip" },
+			},
 			formatting = {
-				fields = { "kind", "abbr", "menu" }, -- Define which fields to include
 				format = function(entry, vim_item)
-					vim_item.kind = lspkind.presets.default[vim_item.kind] -- Format kind with lspkind
-					vim_item.menu = ({
-						buffer = "[Buffer]",
-						nvim_lsp = "[LSP]",
-						luasnip = "[Snip]",
-						path = "[Path]",
-					})[entry.source.name] -- Display source name
+					vim_item.kind = string.format("%s", vim_item.kind)
 					return vim_item
 				end,
-				expandable_indicator = true, -- Show indicator for expandable snippets
 			},
 		})
 	end,
