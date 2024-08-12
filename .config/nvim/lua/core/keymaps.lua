@@ -4,6 +4,7 @@ vim.g.mapleader = " "
 local keymap = vim.keymap -- For conciseness
 local api = vim.api -- For conciseness
 local opts = { noremap = true, silent = true } -- For conciseness
+local cmp = require("cmp")
 
 -- Exit Insert mode and return to Normal mode
 keymap.set("i", "jk", "<ESC>", { desc = "Exit insert mode with jk" })
@@ -201,5 +202,39 @@ keymap.set({ "o", "x" }, "ih", ":<C-U>Gitsigns select_hunk<CR>", { desc = "Gitsi
 -- LazyGit keymap(s)
 vim.keymap.set("n", "<leader>lg", "<cmd>LazyGit<cr>", { desc = "Open lazy git" })
 
+-- Linting
+vim.keymap.set("n", "<leader>l", function()
+	require("lint").try_lint()
+end, { desc = "Trigger linting for current file" })
+
 -- Noice keymaps
 keymap.set("n", "<leader>nd", "<cmd>NoiceDismiss<CR>", { desc = "Dismiss Noice Message" }) -- dismiss Noice message
+
+-- nvim-cmp keymaps
+keymap.set("i", "<C-n>", function()
+	if cmp.visible() then
+		cmp.select_next_item()
+	else
+		vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes("<C-n>", true, false, true), "n", true)
+	end
+end, { desc = "Select next completion item" })
+
+keymap.set("i", "<C-p>", function()
+	if cmp.visible() then
+		cmp.select_prev_item()
+	else
+		api.nvim_feedkeys(vim.api.nvim_replace_termcodes("<C-p>", true, false, true), "n", true)
+	end
+end, { desc = "Select previous completion item" })
+
+keymap.set("i", "<C-y>", cmp.confirm, { desc = "Confirm completion" })
+
+keymap.set("i", "<C-e>", cmp.close, { desc = "Close completion menu" })
+
+-- nvim.notify keymaps
+api.nvim_set_keymap(
+	"n",
+	"<leader>nt",
+	[[:lua require('notify')('This is a test notification', 'info')<CR>]],
+	{ noremap = true, silent = true }
+)
