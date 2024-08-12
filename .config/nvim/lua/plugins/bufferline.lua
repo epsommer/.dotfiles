@@ -1,12 +1,9 @@
 -- ~/.config/nvim/lua/plugins/bufferline.lua
+
 return {
 	{
 		"akinsho/bufferline.nvim",
 		event = "VeryLazy",
-		keys = {
-			{ "<Tab>", "<Cmd>BufferLineCycleNext<CR>", desc = "Next tab" },
-			{ "<S-Tab>", "<Cmd>BufferLineCyclePrev<CR>", desc = "Prev tab" },
-		},
 		config = function()
 			require("bufferline").setup({
 				options = {

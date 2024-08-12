@@ -136,5 +136,70 @@ keymap.set("v", "<leader>P", '"+P', opts)
 -- Clear search highlight
 vim.keymap.set("n", "<leader>nh", ":nohlsearch<CR>", { desc = "Clear search highlight" })
 
+-- Auto-session
+keymap.set("n", "<leader>wr", "<cmd>SessionRestore<CR>", { desc = "Restore session for cwd" }) -- restore last workspace session for current directory
+keymap.set("n", "<leader>ws", "<cmd>SessionSave<CR>", { desc = "Save session for auto session root dir" }) -- save workspace session for current working directory
+
+-- Bufferline
+keymap.set("n", "<Tab>", "<Cmd>BufferLineCycleNext<CR>", { desc = "Next tab" })
+keymap.set("n", "<S-Tab>", "<Cmd>BufferLineCyclePrev<CR>", { desc = "Prev tab" })
+
+-- Formatting
+keymap.set({ "n", "v" }, "<leader>mp", function()
+	require("conform").format({
+		lsp_fallback = true,
+		async = false,
+		timeout_ms = 1000,
+	})
+end, { desc = "Format file or range (in visual mode)" })
+
+-- Gitsigns keymaps
+keymap.set("n", "]h", function()
+	require("gitsigns").next_hunk()
+end, { desc = "Next Hunk" })
+keymap.set("n", "[h", function()
+	require("gitsigns").prev_hunk()
+end, { desc = "Prev Hunk" })
+keymap.set("n", "<leader>hs", function()
+	require("gitsigns").stage_hunk()
+end, { desc = "Stage hunk" })
+keymap.set("n", "<leader>hr", function()
+	require("gitsigns").reset_hunk()
+end, { desc = "Reset hunk" })
+keymap.set("v", "<leader>hs", function()
+	require("gitsigns").stage_hunk({ vim.fn.line("."), vim.fn.line("v") })
+end, { desc = "Stage hunk" })
+keymap.set("v", "<leader>hr", function()
+	require("gitsigns").reset_hunk({ vim.fn.line("."), vim.fn.line("v") })
+end, { desc = "Reset hunk" })
+keymap.set("n", "<leader>hS", function()
+	require("gitsigns").stage_buffer()
+end, { desc = "Stage buffer" })
+keymap.set("n", "<leader>hR", function()
+	require("gitsigns").reset_buffer()
+end, { desc = "Reset buffer" })
+keymap.set("n", "<leader>hu", function()
+	require("gitsigns").undo_stage_hunk()
+end, { desc = "Undo stage hunk" })
+keymap.set("n", "<leader>hp", function()
+	require("gitsigns").preview_hunk()
+end, { desc = "Preview hunk" })
+keymap.set("n", "<leader>hb", function()
+	require("gitsigns").blame_line({ full = true })
+end, { desc = "Blame line" })
+keymap.set("n", "<leader>hB", function()
+	require("gitsigns").toggle_current_line_blame()
+end, { desc = "Toggle line blame" })
+keymap.set("n", "<leader>hd", function()
+	require("gitsigns").diffthis()
+end, { desc = "Diff this" })
+keymap.set("n", "<leader>hD", function()
+	require("gitsigns").diffthis("~")
+end, { desc = "Diff this ~" })
+keymap.set({ "o", "x" }, "ih", ":<C-U>Gitsigns select_hunk<CR>", { desc = "Gitsigns select hunk" })
+
+-- LazyGit keymap(s)
+vim.keymap.set("n", "<leader>lg", "<cmd>LazyGit<cr>", { desc = "Open lazy git" })
+
 -- Noice keymaps
 keymap.set("n", "<leader>nd", "<cmd>NoiceDismiss<CR>", { desc = "Dismiss Noice Message" }) -- dismiss Noice message
