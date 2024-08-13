@@ -31,8 +31,8 @@ keymap("n", "<leader>tf", "<cmd>tabnew %<CR>", { desc = "Open current buffer in 
 -- Move lines up and down
 api("n", "<C-S-Up>", ":m .-2<CR>==", opts)
 api("n", "<C-S-Down>", ":m .+1<CR>==", opts)
-api("v", "<C-k>", ":m '<-2<CR>gv=gv", opts) -- Move selected lines up with Ctrl + k
-api("v", "<C-j>", ":m '>+1<CR>gv=gv", opts) -- Move selected lines down with Ctrl + j
+api("v", "<C-S-Up>", ":m '<-2<CR>gv=gv", opts) -- Move selected lines up with Ctrl + k
+api("v", "<C-S-Down>", ":m '>+1<CR>gv=gv", opts) -- Move selected lines down with Ctrl + j
 
 -- Modify text without altering the registers
 keymap("n", "x", '"_x')
@@ -83,7 +83,7 @@ keymap("n", "<C-w><up>", "<C-w>+")
 keymap("n", "<C-w><down>", "<C-w>-")
 
 -- Diagnostics
-keymap("n", "<C-j>", function()
+keymap("n", "<C-n>", function()
 	vim.diagnostic.goto_next()
 end, opts)
 
