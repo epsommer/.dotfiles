@@ -4,7 +4,7 @@ This repository contains configuration files for setting up and customizing your
 
 ## Overview
 
-The `.dotfiles` repository includes configurations for various tools and environments:
+The `dotfiles` repository includes configurations for various tools and environments:
 
 - **Fish Shell**: Custom settings and functions for the Fish shell.
 - **Kitty Terminal**: Terminal emulator configuration.
@@ -35,10 +35,10 @@ To use these configurations, you need to symlink the directories from this repos
 3. **Create symbolic links:**
 
     ```bash
-    ln -s ~/.dotfiles/.config/fish ~/.config/fish
-    ln -s ~/.dotfiles/.config/kitty ~/.config/kitty
-    ln -s ~/.dotfiles/.config/nvim ~/.config/nvim
-    ln -s ~/.dotfiles/.config/tmux ~/.config/tmux
+    ln -s ~/dotfiles/.config/fish ~/.config/fish
+    ln -s ~/dotfiles/.config/kitty ~/.config/kitty
+    ln -s ~/dotfiles/.config/nvim ~/.config/nvim
+    ln -s ~/dotfiles/.config/tmux ~/.config/tmux
     ```
 
 ### Usage
