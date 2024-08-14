@@ -82,7 +82,7 @@ return {
 		keymap.set("n", "<leader>ec", "<cmd>NvimTreeCollapse<CR>", { desc = "Collapse file explorer" })
 		keymap.set("n", "<leader>er", "<cmd>NvimTreeRefresh<CR>", { desc = "Refresh file explorer" })
 
-		-- UI customizations: set highlight overrides
+		-- Load and apply custom highlights
 		local function apply_custom_highlights()
 			local hl_override = {
 				-- File icons
@@ -133,10 +133,14 @@ return {
 				CursorLineNr = { fg = colors.bone, bg = colors.inactive_bg },
 				NvimTreeCursorLineNr = { fg = colors.bone, bg = colors.inactive_bg },
 				NvimTreeStatusLine = { fg = colors.bone, bg = colors.inactive_bg },
+
+				-- Additional folder scope line highlight (if available in theme)
+				NvimTreeIndentMarker = { fg = colors.nickel }, -- Example highlight group for indentation markers
+				NvimTreeLineNr = { fg = colors.nickel }, -- Example highlight group for line numbers
 			}
 
-			for icon, color in pairs(hl_override) do
-				vim.cmd(string.format("highlight %s guifg=%s guibg=%s", icon, color.fg or "NONE", color.bg or "NONE"))
+			for group, color in pairs(hl_override) do
+				vim.api.nvim_set_hl(0, group, { fg = color.fg or "NONE", bg = color.bg or "NONE" })
 			end
 		end
 

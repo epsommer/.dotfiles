@@ -17,7 +17,6 @@ require("lazy").setup({
 	-- Import plugins from the specified directories
 	{ import = "plugins" },
 	{ import = "plugins.lsp" },
-
 	checker = {
 		enabled = true,
 		notify = false,
